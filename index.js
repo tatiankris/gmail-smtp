@@ -28,7 +28,7 @@ let transporter = nodemailer.createTransport({
 
 
 
-    app.post('https://smtp-nodejs-gmail.herokuapp.com/sendMessage', async function (req, res) {
+    app.post('/sendMessage', async function (req, res) {
 
 
         let {name, email, message} = req.body;
@@ -49,7 +49,7 @@ let transporter = nodemailer.createTransport({
     });
 
 
-app.get('https://smtp-nodejs-gmail.herokuapp.com/', (req, res) => {
+app.get('/', (req, res) => {
 
     res.send('Hello!');
 });

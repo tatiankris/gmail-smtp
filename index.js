@@ -10,6 +10,8 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+let smtp_login = process.env.SMTP_LOGIN || "---";
+let smtp_password = process.env.SMTP_PASSWORD || "---";
 
 let transporter = nodemailer.createTransport({
 
@@ -19,14 +21,14 @@ let transporter = nodemailer.createTransport({
         // secure: false,
         // requireTLS: true,
         auth: {
-            user: "kristanya00@gmail.com", // generated ethereal user
-            pass: "hcsszrhjchxsvxyy", // generated ethereal password
+            user: smtp_login, // generated ethereal user "kristanya00@gmail.com"
+            pass: smtp_password, // generated ethereal password "hcsszrhjchxsvxyy"
         },
     });
 
 
 
-    app.post('/sendMessage', async function (req, res) {
+    app.post('https://smtp-nodejs-gmail.herokuapp.com/sendMessage', async function (req, res) {
 
 
         let {name, email, message} = req.body;
@@ -47,15 +49,15 @@ let transporter = nodemailer.createTransport({
     });
 
 
-app.get('/', (req, res) => {
+app.get('https://smtp-nodejs-gmail.herokuapp.com/', (req, res) => {
 
     res.send('Hello!');
 });
 
 
 
+let port = process.env.PORT || 3010;
 
-
-app.listen(3010, () => {
+app.listen(port, () => {
     console.log('Example app listening on port 3010!')
 });
